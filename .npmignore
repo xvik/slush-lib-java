@@ -1,0 +1,9 @@
+node_modules
+temp
+*.log
+.idea
+*.iml
+
+
+# don't ignore .npmignore files
+!.npmignore

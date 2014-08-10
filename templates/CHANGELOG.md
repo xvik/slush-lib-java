@@ -1,0 +1,3 @@
+### <%= libVersion %>
+
+* Initial release
