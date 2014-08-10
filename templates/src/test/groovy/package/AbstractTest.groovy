@@ -1,3 +1,5 @@
+package <%= libPackage %>;
+
 import spock.lang.Specification
 
 /**

@@ -54,7 +54,7 @@ gulp.task('default', function (done) {
         },
         {
             name: 'libTags',
-            message: 'Tags for bintray package',
+            message: 'Tags for bintray package (comma separated list)',
             default: ''
         },
         {
@@ -94,7 +94,7 @@ gulp.task('default', function (done) {
 
             var d = new Date();
             answers.year = d.getFullYear();
-            answers.date = d.getDate() + '.' + (d.getMonth() <10 ? '0'+d.getMonth(): d.getMonth()) + '.' + d.getFullYear();
+            answers.date = d.getDate() + '.' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '.' + d.getFullYear();
 
             var debug = function (name) {
                 return through.obj(function (file, enc, cb) {
@@ -104,10 +104,17 @@ gulp.task('default', function (done) {
                 });
             };
 
+            // init gradle wrapper adn stateless configs
+            gulp.src(__dirname + '/stub-gradle/**')
+                .pipe(debug('stub-gradle'))
+                .pipe(conflict('./'))
+                .pipe(gulp.dest('./'))
+                .on('end', processTemplates);
+
+            // create project files
             function processTemplates() {
-                gulp.src(__dirname + '/templates/**')
-                    // debug log
-//                        .pipe(debug('template'))
+                gulp.src([__dirname + '/templates/**', '!' + __dirname + '/templates/src/**/package/*'])
+                    .pipe(debug('template'))
                     .pipe(template(answers))
                     .pipe(rename(function (file) {
                         if (file.basename[0] === '_') {
@@ -116,16 +123,50 @@ gulp.task('default', function (done) {
                     }))
                     .pipe(conflict('./'))
                     .pipe(gulp.dest('./'))
-                    .on('end', function () {
-                        done();
-                    });
+                    .on('end', initSources);
             }
 
-            gulp.src(__dirname + '/stub/**')
-                // debug log
-//                .pipe(debug('stub'))
-                .pipe(conflict('./'))
-                .pipe(gulp.dest('./'))
-                .on('end', processTemplates);
+            // create packages
+            function initSources() {
+                var packageFolder = answers.libPackage.replace(/\./g, '/');
+
+                function createPackage(folder, cb) {
+                    var srcDir = __dirname + '/templates/' + folder + '/package/**';
+                    var targetDir = './' + folder + '/' + packageFolder + '/';
+                    // remove empty folder
+                    require('fs').rmdirSync('./' + folder + '/package');
+                    gulp.src(srcDir)
+                        .pipe(debug('package in ' + folder))
+                        .pipe(template(answers))
+                        .pipe(rename(function (file) {
+                            if (file.basename[0] === '_') {
+                                file.basename = '.' + file.basename.slice(1);
+                            }
+                        }))
+                        .pipe(conflict('./'))
+                        .pipe(gulp.dest(targetDir))
+                        .on('end', function () {
+                            cb();
+                        });
+                }
+
+                var paths = ['src/main/java',
+                    'src/main/resources',
+                    'src/test/groovy',
+                    'src/test/resources',
+                    'src/test/java'];
+
+                var i = 0;
+
+                function nextPath() {
+                    if (i < paths.length) {
+                        createPackage(paths[i++], nextPath);
+                    } else {
+                        done();
+                    }
+                }
+
+                createPackage(paths[i++], nextPath);
+            }
         });
 });
