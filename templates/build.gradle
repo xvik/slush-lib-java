@@ -131,7 +131,9 @@ task install(dependsOn: 'publishMavenJavaPublicationToMavenLocal', description: 
     logger.warn "INSTALLED $project.group:$project.name:$project.version"
 }
 
-task release(dependsOn: [bintrayUpload, bintrayPublish], description: 'publish version to bintray and sign all jars') << {
+// to enable automatic artifacts signing add dependency to signing task:
+// dependsOn: [bintrayUpload, bintrayPublish]
+task release(dependsOn: [bintrayUpload], description: 'publish version to bintray and sign all jars') << {
     logger.warn "RELEASED $project.group:$project.name:$project.version"
 }
 
