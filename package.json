@@ -1,6 +1,6 @@
 {
   "name": "slush-lib-java",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A slush generator for java library project, hosted on github, build with gradle and published to bintray",
   "keywords": [
     "slushgenerator",
@@ -29,20 +29,20 @@
   "main": "slushfile.js",
   "scripts": {},
   "dependencies": {
-    "gulp": "~3.5.6",
-    "gulp-conflict": "~0.1.1",
-    "gulp-install": "~0.1.1",
+    "gulp": "~3.8.7",
+    "gulp-conflict": "~0.2.0",
+    "gulp-install": "~0.2.0",
     "gulp-rename": "~1.2.0",
-    "gulp-template": "~0.1.1",
+    "gulp-template": "~1.0.0",
     "iniparser": "^1.0.5",
-    "inquirer": "~0.4.1",
-    "slush": ">=1.0.0",
-    "through2": "^0.6.0",
+    "inquirer": "~0.6.0",
+    "slush": ">=1.0.1",
+    "through2": "^0.6.1",
     "underscore.string": "~2.3.3"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
-    "chai": "~1.8.0"
+    "mocha": "~1.21.4",
+    "chai": "~1.9.1"
   },
   "engines": {
     "node": ">=0.10.26",

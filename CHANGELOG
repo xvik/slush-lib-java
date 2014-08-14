@@ -1,3 +1,11 @@
+0.2.0
+    Add bintray jars signing option question
+    Update npm dependencies
+
+    Cleanup gradle build, update plugins
+    Add versions task to gradle build to easily track dependencies updates
+    Add dependency tree build task to build html report and analyze it
+
 0.1.1
     Updated docs
 

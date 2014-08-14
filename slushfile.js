@@ -79,6 +79,11 @@ gulp.task('default', function (done) {
         },
         {
             type: 'confirm',
+            name: 'bintraySignFiles',
+            message: 'Should bintray sign files on release?'
+        },
+        {
+            type: 'confirm',
             name: 'moveon',
             message: 'Continue?'
         }
