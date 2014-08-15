@@ -44,6 +44,12 @@ Project support files signing (bintray rest api called to sign just released fil
 
 Read [instruction](https://medium.com/@vyarus/the-hard-way-to-maven-central-c9e16d163acc)
 
+Add bintray user and key to `~/.gradle/gradle.properties`
+
+```
+bintrayUser=username
+bintrayKey=secretkey
+```
 
 ### Usage
 
