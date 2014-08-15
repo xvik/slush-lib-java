@@ -7,6 +7,7 @@
     "java",
     "lib",
     "gradle",
+    "github",
     "bintray"
   ],
   "homepage": "https://github.com/xvik/slush-lib-java",
