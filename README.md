@@ -107,6 +107,7 @@ gradlew release
 ```
 
 Releases library.
+
 NOTE: During first release bintray upload will fail.. it's a [known issue](https://github.com/bintray/gradle-bintray-plugin/issues/30) - 
 this time bintray package was created.. simply release one more time and everything will be ok.
 
@@ -141,16 +142,18 @@ Used gradle plugins:
 NOTE: [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) plugin is commented in `quality.gradle` 
 because of strage errors (maybe it will work in your case, try to enable it).
 
-By default checkstyle configured with [sun conventions](http://java.sun.com/docs/codeconv/) file (see `gradle/config/checkstyle/sun_checks.xml`).
-Modify according to your needs.
+By default checkstyle configured with [sun conventions](http://java.sun.com/docs/codeconv/) file 
+(see `gradle/config/checkstyle/sun_checks.xml`).
+Modify it according to your needs.
 
 Travis is linux based build tool and so will use `gradlew` shell script.
 You need to set executable flag on it.
+
 To do it on windows use git:
 
 ```bash
 $ git update-index --chmod=+x gradlew
-$ git commit -m "Changing file permissions
+$ git commit -m "Changing file permissions"
 $ git push
 ```
 
