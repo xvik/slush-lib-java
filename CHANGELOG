@@ -1,5 +1,12 @@
+0.3.0
+    Don't generate sources folder if existing found (for easy projects migration)
+    Detailed template logs activated with --verbose option (hidden by default)
+    Remove [user] section in global preferences file
+    Add defaults for bintraySignFiles and enableQualityChecks
+
 0.2.0
     Add bintray jars signing option question
+    Add code quality enable option question
     Update npm dependencies
 
     Cleanup gradle build, update plugins

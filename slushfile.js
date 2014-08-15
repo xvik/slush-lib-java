@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    gutil = require('gulp-util'),
     conflict = require('gulp-conflict'),
     template = require('gulp-template'),
     rename = require('gulp-rename'),
@@ -13,21 +14,23 @@ var defaults = (function () {
         workingDirName = process.cwd().split('/').pop().split('\\').pop(),
         osUserName = homeDir && homeDir.split('/').pop().split('\\').pop() || 'root',
         configFile = homeDir + '/.generator',
-        user = {};
+        global = {};
 
     if (require('fs').existsSync(configFile)) {
-        user = require('iniparser').parseSync(configFile).user;
+        global = require('iniparser').parseSync(configFile);
     } else {
-        console.log('global configuration file not found: ' + configFile);
+        gutil.log('Global configuration file not found: ' + configFile);
     }
     // most defaults taken from ~/.generator
     return {
         libName: workingDirName,
-        authorName: user.authorName || osUserName,
-        authorEmail: user.authorEmail || '',
-        userName: user.userName || osUserName,
-        libPackage: user.libPackage || '',
-        libRepo: user.libRepo || user.userName || osUserName
+        authorName: global.authorName || osUserName,
+        authorEmail: global.authorEmail || '',
+        userName: global.userName || osUserName,
+        libPackage: global.libPackage || '',
+        libRepo: global.libRepo || global.userName || osUserName,
+        bintraySignFiles: global.bintraySignFiles ? 'yes' === global.bintraySignFiles: true,
+        enableQualityChecks: global.enableQualityChecks ? 'yes' === global.enableQualityChecks: true
     };
 })();
 
@@ -59,7 +62,7 @@ gulp.task('default', function (done) {
         },
         {
             name: 'authorName',
-            message: 'Author name (full name`)',
+            message: 'Author name (full name)',
             default: defaults.authorName
         },
         {
@@ -80,12 +83,14 @@ gulp.task('default', function (done) {
         {
             type: 'confirm',
             name: 'bintraySignFiles',
-            message: 'Should bintray sign files on release (bintray must be configured accordingly)?'
+            message: 'Should bintray sign files on release (bintray must be configured accordingly)?',
+            default: defaults.bintraySignFiles
         },
         {
             type: 'confirm',
             name: 'enableQualityChecks',
-            message: 'Enable code quality checks (pmd, checkstyle)?'
+            message: 'Enable code quality checks (pmd, checkstyle)?',
+            default: defaults.enableQualityChecks
         },
         {
             type: 'confirm',
@@ -106,9 +111,16 @@ gulp.task('default', function (done) {
             answers.year = d.getFullYear();
             answers.date = d.getDate() + '.' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '.' + d.getFullYear();
 
+            function log() {
+                var logger = gutil.log.bind(gutil, '[' + gutil.colors.grey('generator') + ']');
+                logger.apply(logger, arguments);
+            }
+
+            // --verbose argument enables debug logs
+            var isDebugEnabled = require('minimist')(process.argv, { boolean: true }).verbose;
             var debug = function (name) {
                 return through.obj(function (file, enc, cb) {
-                    console.log('processing ' + name + ': ' + file.path);
+                    if (isDebugEnabled) log('Processing ' + name + ': ' + file.path.replace(__dirname, ''));
                     this.push(file);
                     cb();
                 });
@@ -121,9 +133,15 @@ gulp.task('default', function (done) {
                 .pipe(gulp.dest('./'))
                 .on('end', processTemplates);
 
+            var installSources = !require('fs').existsSync('./src/main/java/');
+            if (!installSources) {
+                log('Generated sources found, avoid source packages generation');
+            }
+            var excludeTemplates = __dirname + (installSources ? '/templates/src/**/package/*' : '/templates/src/**');
+
             // create project files
             function processTemplates() {
-                gulp.src([__dirname + '/templates/**', '!' + __dirname + '/templates/src/**/package/*'])
+                gulp.src([__dirname + '/templates/**', '!' + excludeTemplates])
                     .pipe(debug('template'))
                     .pipe(template(answers))
                     .pipe(rename(function (file) {
@@ -133,7 +151,7 @@ gulp.task('default', function (done) {
                     }))
                     .pipe(conflict('./'))
                     .pipe(gulp.dest('./'))
-                    .on('end', initSources);
+                    .on('end', installSources ? initSources : done);
             }
 
             // create packages
@@ -146,7 +164,7 @@ gulp.task('default', function (done) {
                     // remove empty folder
                     require('fs').rmdirSync('./' + folder + '/package');
                     gulp.src(srcDir)
-                        .pipe(debug('package in ' + folder))
+                        .pipe(debug('package'))
                         .pipe(template(answers))
                         .pipe(rename(function (file) {
                             if (file.basename[0] === '_') {

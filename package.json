@@ -34,8 +34,10 @@
     "gulp-install": "~0.2.0",
     "gulp-rename": "~1.2.0",
     "gulp-template": "~1.0.0",
+    "gulp-util": "^3.0.0",
     "iniparser": "^1.0.5",
     "inquirer": "~0.6.0",
+    "minimist": "^1.1.0",
     "slush": ">=1.0.1",
     "through2": "^0.6.1",
     "underscore.string": "~2.3.3"

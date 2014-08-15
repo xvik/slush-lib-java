@@ -70,13 +70,16 @@ You can specify defaults in `~/.generator` file.
 
 Example:
 ```
-[user]
-	libPackage = my.default.package
-	authorName = My Name
-	authorEmail = my@email.com
-	userName = githubNick
-	libRepo = bintrayRepoName
+libPackage = my.default.package
+authorName = My Name
+authorEmail = my@email.com
+userName = githubNick
+libRepo = bintrayRepoName
+bintraySignFiles = no
+enableQualityChecks = yes
 ```
+
+For boolean properties `yes` is recognized and everything else will be parsed as `no`
 
 ### Project usage
 
