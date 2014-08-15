@@ -80,30 +80,34 @@ Example:
 
 ### Project usage
 
-Project provides just four custom tasks by default.
+```bash
+$ gradlew check
+```
 
-```groovy
-gradlew checkOutOfDate
+Runs code quality plugins
+
+```bash
+$ gradlew checkOutOfDate
 ```
 
 Checks if your project dependencies are actual and prints versions analysis report to console.
 
-```groovy
-gradlew showDependenciesTree
+```bash
+$ gradlew showDependenciesTree
 ```
 
 Generates dependencies html report and launch it in default browser.
 To analyze conflicts, click on dependency name to activate 
 [dependencyInsight](http://www.gradle.org/docs/current/groovydoc/org/gradle/api/tasks/diagnostics/DependencyInsightReportTask.html) popup.
 
-```groovy
-gradlew install
+```bash
+$ gradlew install
 ```
 
 Installs library to local maven repository. Useful for referencing by other projects (for testing without releasing library).
 
-```groovy
-gradlew release
+```bash
+$ gradlew release
 ```
 
 Releases library.
@@ -119,6 +123,7 @@ dryRun = true
 
 In this case library will not be uploaded to bintray.
 Use it to check release process and to check generated artifacts before actual release (especially check pom)
+
 
 ### Project details
 
@@ -177,21 +182,21 @@ Push all changes before release and wait for `travis` to check build (wait for g
 
 If code quality enabled, do periodically:
 
-```groovy
-gradlew check
+```bash
+$ gradlew check
 ```
 
 To fix problems as they appear and not everything before release.
 
-If you releasing first time, try to release with `dryRun` enable (to simulate release process and make sure everything is alright).
+If you releasing first time, try to release with `dryRun` enabled (to simulate release process and make sure everything is alright).
 Don't forget to check generated artifacts and pom.
 
 If you're using java 8, you may have problems with javadoc generation, because parser is more restrictive.
 
 Perform release:
 
-```groovy
-gradlew release
+```bash
+$ gradlew release
 ```
 
 Tag files with released version number (on github tag will appear as release). 
