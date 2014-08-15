@@ -59,7 +59,7 @@ gulp.task('default', function (done) {
         },
         {
             name: 'authorName',
-            message: 'Author name',
+            message: 'Author name (full name`)',
             default: defaults.authorName
         },
         {
@@ -74,13 +74,13 @@ gulp.task('default', function (done) {
         },
         {
             name: 'libRepo',
-            message: 'Bintray repository name?',
+            message: 'Bintray repository name',
             default: defaults.libRepo
         },
         {
             type: 'confirm',
             name: 'bintraySignFiles',
-            message: 'Should bintray sign files on release?'
+            message: 'Should bintray sign files on release (bintray must be configured accordingly)?'
         },
         {
             type: 'confirm',
@@ -114,7 +114,7 @@ gulp.task('default', function (done) {
                 });
             };
 
-            // init gradle wrapper adn stateless configs
+            // init gradle wrapper and stateless configs
             gulp.src(__dirname + '/stub-gradle/**')
                 .pipe(debug('stub-gradle'))
                 .pipe(conflict('./'))
