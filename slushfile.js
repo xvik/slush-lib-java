@@ -84,6 +84,11 @@ gulp.task('default', function (done) {
         },
         {
             type: 'confirm',
+            name: 'enableQualityChecks',
+            message: 'Enable code quality checks (pmd, checkstyle)?'
+        },
+        {
+            type: 'confirm',
             name: 'moveon',
             message: 'Continue?'
         }

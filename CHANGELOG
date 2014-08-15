@@ -5,6 +5,7 @@
     Cleanup gradle build, update plugins
     Add versions task to gradle build to easily track dependencies updates
     Add dependency tree build task to build html report and analyze it
+    Add code quality plugins
 
 0.1.1
     Updated docs
