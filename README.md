@@ -63,6 +63,9 @@ $ cd my-library && slush lib-java
 
 Project setup ready, start coding!
 
+NOTE: May be launched on existing project to update files. In this case all changed files replacement will be asked.
+If java sources directory exist, default package would not be generated.
+
 ### Generator defaults
 
 Some generator questions most likely will not change between your libraries (author, email, github user, bintray repo).
