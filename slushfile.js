@@ -24,6 +24,7 @@ var defaults = (function () {
     // most defaults taken from ~/.generator
     return {
         libName: workingDirName,
+        libGroup: global.libGroup,
         authorName: global.authorName || osUserName,
         authorEmail: global.authorEmail || '',
         userName: global.userName || osUserName,
@@ -40,6 +41,11 @@ gulp.task('default', function (done) {
             name: 'libName',
             message: 'Library name',
             default: defaults.libName
+        },
+        {
+            name: 'libGroup',
+            message: 'Library group (maven artifact group)',
+            default: defaults.libGroup
         },
         {
             name: 'libPackage',

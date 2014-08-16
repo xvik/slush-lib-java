@@ -11,6 +11,7 @@ apply plugin: 'findbugs'
 findbugs {
     toolVersion = "3.0.0"
     ignoreFailures = false
+    sourceSets = [sourceSets.main]
 }
 */
 
@@ -19,6 +20,7 @@ apply plugin: 'pmd'
 pmd {
     toolVersion = "5.1.2"
     ignoreFailures = false
+    sourceSets = [sourceSets.main]
 }
 
 
@@ -27,5 +29,6 @@ apply plugin: 'checkstyle'
 checkstyle {
     toolVersion = "5.7"
     ignoreFailures = false
-    configFile = file('/gradle/config/checkstyle/sun_checks.xml')
+    sourceSets = [sourceSets.main]
+    configFile = file('gradle/config/checkstyle/checkstyle.xml')
 }

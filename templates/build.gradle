@@ -2,11 +2,11 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import java.awt.*
 
 buildscript {
-    apply from: "/gradle/buildscript.gradle", to: buildscript
+    apply from: "gradle/buildscript.gradle", to: buildscript
 }
 
 version = '<%= libVersion %>'
-group = '<%= libPackage %>'
+group = '<%= libGroup %>'
 description = '<%= libDescription %>'
 
 // convention: project.name == github project name == bintray package page
@@ -58,7 +58,7 @@ targetCompatibility = 1.6
 apply from: 'gradle/github.gradle'
 apply from: 'gradle/maven.gradle'
 apply from: 'gradle/bintray.gradle'
-<% if (enableQualityChecks) { %>apply from: 'gradle/quality.gradle'<% } %>
+<% if (!enableQualityChecks) { %>//<% } %>apply from: 'gradle/quality.gradle'
 
 
 repositories {

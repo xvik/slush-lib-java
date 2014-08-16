@@ -1,3 +1,10 @@
+0.4.0
+    Add question for artifact maven group
+    Add simplified checkstyle configuration (enabled by default)
+    Code quality tools run on sources only (avoid tests)
+    Add 'powered by' badge to generated readme
+    Fix generated project build
+
 0.3.0
     Don't generate sources folder if existing found (for easy projects migration)
     Detailed template logs activated with --verbose option (hidden by default)

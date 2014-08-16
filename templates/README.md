@@ -8,8 +8,8 @@
 <%= libDescription %>
 
 Features:
-* One
-* [Two link](http://somewhere.com)
+* Feature 1
+* Feature 2
 
 ### Setup
 
@@ -20,16 +20,19 @@ Maven:
 
 ```xml
 <dependency>
-<groupId><%= libPackage %></groupId>
-<artifactId><%= libName %></artifactId>
-<version><%= libVersion %></version>
+  <groupId><%= libGroup %></groupId>
+  <artifactId><%= libName %></artifactId>
+  <version><%= libVersion %></version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-compile '<%= libPackage %>:<%= libName %>:<%= libVersion %>'
+compile '<%= libGroup %>:<%= libName %>:<%= libVersion %>'
 ```
 
 ### Usage
+
+-
+[![Slush java lib generator](http://img.shields.io/badge/Powered%20by-Slush%20java%20lib%20generator-orange.svg?style=flat-square)](https://github.com/xvik/slush-lib-java)

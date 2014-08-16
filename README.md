@@ -17,6 +17,10 @@ Features:
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
 * Code quality checks (pmd, checkstyle)
 
+### Thanks to
+
+[Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config
+
 ### Setup
 
 Install [slush](http://slushjs.github.io/):
@@ -79,6 +83,7 @@ You can specify defaults in `~/.generator` file.
 
 Example:
 ```
+libGroup = maven.group
 libPackage = my.default.package
 authorName = My Name
 authorEmail = my@email.com
@@ -159,9 +164,16 @@ Used gradle plugins:
 NOTE: [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) plugin is commented in `quality.gradle` 
 because of strage errors (maybe it will work in your case, try to enable it).
 
-By default checkstyle configured with [sun conventions](http://java.sun.com/docs/codeconv/) file 
-(see `gradle/config/checkstyle/sun_checks.xml`).
-Modify it according to your needs.
+By default, checkstyle configured with simplified checks file. Modify it according to your needs.
+[Sun conventions](http://java.sun.com/docs/codeconv/) file is also provided as reference
+(see `gradle/config/checkstyle/sun_checks.xml`). You can replace default file in `quality.gradle`.
+
+To suppress checkstyle warnings (required for some exceptional cases) use `@SuppressWarnings` annotation with 
+value composed as `checkstyle:` prefix and lowercased checkstyle check name:
+
+```java
+@SuppressWarnings("checkstyle:classdataabstractioncoupling")
+```
 
 Travis is linux based build tool and so will use `gradlew` shell script.
 You need to set executable flag on it.
@@ -216,9 +228,6 @@ Tag files with released version number (on github tag will appear as release).
 Increase library version number.
 
 ### Examples
-
-These libraries wasn't generated with generator, but original build was created for them, 
-so overall projects demonstrate expected target for generated project.
 
 * [guice-persist-orient](https://github.com/xvik/guice-persist-orient)
 * [guice-ext-annotations](https://github.com/xvik/guice-ext-annotations)
