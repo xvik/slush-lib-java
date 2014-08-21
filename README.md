@@ -16,6 +16,8 @@ Features:
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
 * Code quality checks (pmd, checkstyle)
+ 
+[The story behind](https://medium.com/@vyarus/faster-way-to-java-opensource-d4fa78efcf16)
 
 ### Thanks to
 
