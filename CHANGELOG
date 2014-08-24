@@ -1,3 +1,6 @@
+0.4.1
+    Add custom pmd config
+    Add pmd errors print to console
 0.4.0
     Add question for artifact maven group
     Add simplified checkstyle configuration (enabled by default)

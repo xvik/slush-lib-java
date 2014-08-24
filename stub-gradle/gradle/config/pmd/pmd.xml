@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="Base ruleset" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
-    <description>Juan Roperto's base ruleset</description>
+    <description>Based on Juan Roperto's ruleset (https://github.com/jroperto)</description>
 
     <rule ref="rulesets/java/basic.xml"/>
 

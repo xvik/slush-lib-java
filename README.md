@@ -22,6 +22,7 @@ Features:
 ### Thanks to
 
 [Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config
+[Juan Roperto](https://github.com/jroperto) for pmd config
 
 ### Setup
 
@@ -177,6 +178,12 @@ value composed as `checkstyle:` prefix and lowercased checkstyle check name:
 @SuppressWarnings("checkstyle:classdataabstractioncoupling")
 ```
 
+To suppress PMD violation use (in case PMD makes a mistake):
+
+```java
+@SuppressWarnings("PMD.checkName")
+```
+
 Travis is linux based build tool and so will use `gradlew` shell script.
 You need to set executable flag on it.
 
@@ -234,3 +241,4 @@ Increase library version number.
 * [guice-persist-orient](https://github.com/xvik/guice-persist-orient)
 * [guice-ext-annotations](https://github.com/xvik/guice-ext-annotations)
 * [guice-validator](https://github.com/xvik/guice-validator)
+* [dropwizard-orient-server](https://github.com/xvik/dropwizard-orient-server)
