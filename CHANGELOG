@@ -1,20 +1,23 @@
-0.4.1
+0.4.1 (2014-08-**)
     Add custom pmd config
     Add pmd errors print to console
-0.4.0
+    Fix gradlew file permissions
+    Add date marker to generated changelog
+
+0.4.0 (2014-08-16)
     Add question for artifact maven group
     Add simplified checkstyle configuration (enabled by default)
     Code quality tools run on sources only (avoid tests)
     Add 'powered by' badge to generated readme
     Fix generated project build
 
-0.3.0
+0.3.0 (2014-08-15)
     Don't generate sources folder if existing found (for easy projects migration)
     Detailed template logs activated with --verbose option (hidden by default)
     Remove [user] section in global preferences file
     Add defaults for bintraySignFiles and enableQualityChecks
 
-0.2.0
+0.2.0 (2014-08-15)
     Add bintray jars signing option question
     Add code quality enable option question
     Update npm dependencies
@@ -24,8 +27,8 @@
     Add dependency tree build task to build html report and analyze it
     Add code quality plugins
 
-0.1.1
+0.1.1 (2014-08-11)
     Updated docs
 
-0.1.0
+0.1.0 (2014-08-11)
     Initial release

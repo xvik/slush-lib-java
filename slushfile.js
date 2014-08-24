@@ -116,6 +116,8 @@ gulp.task('default', function (done) {
             var d = new Date();
             answers.year = d.getFullYear();
             answers.date = d.getDate() + '.' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '.' + d.getFullYear();
+            answers.reverseDate = d.getFullYear() + '-' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '-'
+                + (d.getDate() < 10 ? '0' + d.getDate() : d.getDate());
 
             function log() {
                 var logger = gutil.log.bind(gutil, '[' + gutil.colors.grey('generator') + ']');
