@@ -21,8 +21,8 @@ Features:
 
 ### Thanks to
 
-[Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config
-[Juan Roperto](https://github.com/jroperto) for pmd config
+* [Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config
+* [Juan Roperto](https://github.com/jroperto) for pmd config
 
 ### Setup
 
