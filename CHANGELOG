@@ -1,8 +1,9 @@
-0.4.1 (2014-08-**)
+0.5.0 (2014-08-25)
     Add custom pmd config
     Add pmd errors print to console
     Fix gradlew file permissions
     Add date marker to generated changelog
+    Add release process support (gradle-release plugin)
 
 0.4.0 (2014-08-16)
     Add question for artifact maven group

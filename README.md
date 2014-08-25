@@ -16,6 +16,7 @@ Features:
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
 * Code quality checks (pmd, checkstyle)
+* Release process (like maven release)
  
 [The story behind](https://medium.com/@vyarus/faster-way-to-java-opensource-d4fa78efcf16)
 
@@ -104,7 +105,8 @@ For boolean properties `yes` is recognized and everything else will be parsed as
 $ gradlew check
 ```
 
-Runs code quality plugins
+Runs code quality plugins. If quality checks were activated (asked during generation) do check before pushing to avoid 
+build failures on travis. Moreover, it's easy to always keep everything clean instead of doing it before release.
 
 ```bash
 $ gradlew checkOutOfDate
@@ -130,19 +132,7 @@ Installs library to local maven repository. Useful for referencing by other proj
 $ gradlew release
 ```
 
-Releases library.
-
-NOTE: During first release bintray upload will fail.. it's a [known issue](https://github.com/bintray/gradle-bintray-plugin/issues/30) - 
-this time bintray package was created.. simply release one more time and everything will be ok.
-
-You can simulate release by enabling dryRun in `build.gradle`:
-
-```groovy
-dryRun = true
-```
-
-In this case library will not be uploaded to bintray.
-Use it to check release process and to check generated artifacts before actual release (especially check pom)
+Releases library. Read release process section below before performing first release.
 
 
 ### Project details
@@ -163,6 +153,7 @@ Used gradle plugins:
 * [com.github.kt3k.coveralls](https://github.com/kt3k/coveralls-gradle-plugin) to send coverage report to coveralls
 * [pmd](http://www.gradle.org/docs/current/userguide/pmd_plugin.html) to check code quality with [PMD](http://pmd.sourceforge.net/) tool
 * [checkstyle](http://www.gradle.org/docs/current/userguide/checkstyle_plugin.html) to check code style rules with [checkstyle](http://checkstyle.sourceforge.net/index.html)
+* [release](https://github.com/townsfolk/gradle-release) for release (see [article](http://www.sosaywecode.com/gradle-release-plugin/) for additional plugin details)
 
 NOTE: [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) plugin is commented in `quality.gradle` 
 because of strage errors (maybe it will work in your case, try to enable it).
@@ -185,7 +176,7 @@ To suppress PMD violation use (in case PMD makes a mistake):
 ```
 
 Travis is linux based build tool and so will use `gradlew` shell script.
-You need to set executable flag on it.
+You need to set executable flag on it if it's not set.
 
 To do it on windows use git:
 
@@ -209,32 +200,87 @@ To add bintray version badge to github readme: release project, go to bintray pa
 
 ### Release process
 
+#### First release
+
+The following steps must be performed only before first library release.
+
+Due to [known issue](https://github.com/bintray/gradle-bintray-plugin/issues/30) in bintray plugin, first upload will fail if package not yet exist.
+So either create package manually or call:
+
+```bash
+$ gradlew bintrayUpload
+```
+To create package on bintray (it will fail but it's ok - package should be created).
+
+You can set `dryRun = true` in bintray build section to simulate upload process and make sure everything is alright.
+
+Current bintray rest api did not allow to link github readme and changelog file automatically.
+So you will have to go to your package page and edit package: fill in github repository name (user/repo-name) and
+the name of changes file (CHANGELOG.md). After that click on 'readme' tab on package page and select 'github page'.
+Do the same on 'release notes' tab.
+
+After actual release press 'add to jcenter' button to request jcenter linking (required for maven central publication 
+and even if you dont want to sync to maven central, linking to jcenter will simplify library usage for end users)
+
+When releasing first time it's better to do 
+
+```bash
+$ gradlew install 
+```
+
+And validate generated pom file and jars (in local maven repository ~/.m2/repository/..).
+
+NOTE: Release plugin requires access to git repository without credentials, so it's 
+better to allow storing credentials when using git console.
+Windows users with sysgit 1.8.1 and up could use: 
+
+```bash
+$ git config --global credential.helper wincred
+```
+
+To [avoid problems](https://github.com/townsfolk/gradle-release/issues/81).
+
+On bintray package page you can find 'latest version' badge code generator: generate badge and insert into your readme.
+
+
+#### General release process
+
 Update `CHANGELOG.md`.
 
 Push all changes before release and wait for `travis` to check build (wait for green badge).
-
-If code quality enabled, do periodically:
-
-```bash
-$ gradlew check
-```
-
-To fix problems as they appear and not everything before release.
-
-If you releasing first time, try to release with `dryRun` enabled (to simulate release process and make sure everything is alright).
-Don't forget to check generated artifacts and pom.
-
-If you're using java 8, you may have problems with javadoc generation, because parser is more restrictive.
 
 Perform release:
 
 ```bash
 $ gradlew release
 ```
+ 
+Release will check that current copy is actual: no uncommitted/unversioned/unpushed changes, nothing newer is in remote repository.
+You can start releasing either from snapshot version (1.0.0-SNAPSHOT) or from normal one (1.0.0).
 
-Tag files with released version number (on github tag will appear as release). 
+During release plugin will create tag (new github release appear) and update version in `gradle.properties`.
 
-Increase library version number.
+NOTE: Sometimes release plugin [did not set 'SNAPSHOT' postfix](https://github.com/townsfolk/gradle-release/issues/64) to new version.
+
+
+If you use bintray maven synchronization, go to bintray package page, open 'maven' tab and press 'synch' button. 
+Usually it works well, but sometimes it fails with strange errors (something like not able to close repository) - 
+simply do synch one more time (eventually it will do it (of course, if your files valid))
+
+#### If release failed
+
+Nothing bad could happen. 
+
+If bintray upload failed, you can always upload one more time.
+If you uploaded bad version and want to re-release it, simply remove version files on bintray package version page and re-do release.
+
+Release plugin changes only version in `gradle.properties` and creates git tag. 
+Version could be reverted manually (by correcting file) and git tag could be also removed like this:
+
+```bash
+git tag -d release01 
+git push origin :refs/tags/release01 
+```
 
 ### Examples
 
