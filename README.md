@@ -212,8 +212,6 @@ $ gradlew bintrayUpload
 ```
 To create package on bintray (it will fail but it's ok - package should be created).
 
-You can set `dryRun = true` in bintray build section to simulate upload process and make sure everything is alright.
-
 Current bintray rest api did not allow to link github readme and changelog file automatically.
 So you will have to go to your package page and edit package: fill in github repository name (user/repo-name) and
 the name of changes file (CHANGELOG.md). After that click on 'readme' tab on package page and select 'github page'.
@@ -258,14 +256,14 @@ $ gradlew release
 Release will check that current copy is actual: no uncommitted/unversioned/unpushed changes, nothing newer is in remote repository.
 You can start releasing either from snapshot version (1.0.0-SNAPSHOT) or from normal one (1.0.0).
 
-During release plugin will create tag (new github release appear) and update version in `gradle.properties`.
+During release, plugin will create tag (new github release appear) and update version in `gradle.properties`.
 
 NOTE: Sometimes release plugin [did not set 'SNAPSHOT' postfix](https://github.com/townsfolk/gradle-release/issues/64) to new version.
 
 
-If you use bintray maven synchronization, go to bintray package page, open 'maven' tab and press 'synch' button. 
+If you use bintray maven synchronization, go to bintray package page, open 'maven' tab and press 'sync' button. 
 Usually it works well, but sometimes it fails with strange errors (something like not able to close repository) - 
-simply do synch one more time (eventually it will do it (of course, if your files valid))
+simply do sync one more time (eventually it will do it (of course, if your files valid))
 
 #### If release failed
 
