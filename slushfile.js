@@ -114,9 +114,10 @@ gulp.task('default', function (done) {
             answers.libTags = answers.libTags ? answers.libTags.split(',') : [];
 
             var d = new Date();
+            var month = d.getMonth() +1;
             answers.year = d.getFullYear();
-            answers.date = d.getDate() + '.' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '.' + d.getFullYear();
-            answers.reverseDate = d.getFullYear() + '-' + (d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()) + '-'
+            answers.date = d.getDate() + '.' + (month < 10 ? '0' + month : month) + '.' + d.getFullYear();
+            answers.reverseDate = d.getFullYear() + '-' + (month < 10 ? '0' + month : month) + '-'
                 + (d.getDate() < 10 ? '0' + d.getDate() : d.getDate());
 
             function log() {
