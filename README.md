@@ -2,6 +2,7 @@
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT)
 [![NPM version](http://img.shields.io/npm/v/slush-lib-java.svg?style=flat)](http://badge.fury.io/js/slush-lib-java)
+[![Downloads](http://img.shields.io/npm/dm/slush-lib-java.svg?style=flat)](https://www.npmjs.org/package/slush-lib-java)
 
 ### About
 
