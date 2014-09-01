@@ -1,3 +1,8 @@
+0.5.1 (2014-09-01)
+    Update pmd config
+    Fix build fail if git repo not initialized (because of release plugin)
+    Move sign release config option into bintray section
+
 0.5.0 (2014-08-25)
     Add custom pmd config
     Add pmd errors print to console
