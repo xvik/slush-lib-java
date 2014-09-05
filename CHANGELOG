@@ -1,3 +1,11 @@
+0.5.2 (TBR)
+    Checkstyle config update: avoid fail on errors like "Unable to get class information for"
+    Pmd config update: remove j2ee section (as not relevant)
+    Add checkstyle html report generation
+    Add developerConnection and tag to generated pom
+    Add bintray user question (for badge generation)
+    Add maven central version and bintray badges to readme
+
 0.5.1 (2014-09-01)
     Update pmd config
     Fix build fail if git repo not initialized (because of release plugin)

@@ -16,6 +16,11 @@ Features:
 Releases are published to [bintray jcenter](https://bintray.com/bintray/jcenter) (package appear immediately after release) 
 and then to maven central (require few days after release to be published). 
 
+<!---
+[![Download](https://api.bintray.com/packages/<%= bintrayUser %>/<%= libRepo %>/<%= libName %>/images/download.png) ](https://bintray.com/<%= bintrayUser %>/<%= libRepo %>/<%= libName %>/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/<%= libGroup %>/<%= libName %>/badge.svg?style=flat)](https://maven-badges.hrokuapp.com/maven-central/<%= libGroup %>/<%= libName %>)
+-->
+
 Maven:
 
 ```xml

@@ -29,6 +29,7 @@ var defaults = (function () {
         authorEmail: global.authorEmail || '',
         userName: global.userName || osUserName,
         libPackage: global.libPackage || '',
+        bintrayUser: global.bintrayUser || '',
         libRepo: global.libRepo || global.userName || osUserName,
         bintraySignFiles: global.bintraySignFiles ? 'yes' === global.bintraySignFiles: true,
         enableQualityChecks: global.enableQualityChecks ? 'yes' === global.enableQualityChecks: true
@@ -80,6 +81,11 @@ gulp.task('default', function (done) {
             name: 'userName',
             message: 'Github username',
             default: defaults.userName
+        },
+        {
+            name: 'bintrayUser',
+            message: 'Bintray user name (used for badge generation only)',
+            default: defaults.bintrayUser
         },
         {
             name: 'libRepo',

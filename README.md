@@ -12,7 +12,7 @@ Features:
 * [MIT](http://opensource.org/licenses/MIT) license (hardcoded)
 * [Gradle](http://www.gradle.org/) build
 * [Maven central](http://search.maven.org/) compatible artifacts (jar, sources, javadocs)
-* Ready for [spock](https://code.google.com/p/spock/) tests
+* Ready for [spock](https://code.google.com/p/spock/) tests ([documentation](http://spock-framework.readthedocs.org/en/latest/))
 * [Bintray](https://bintray.com/) publication (may be published to maven central using bintray ui)
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
@@ -170,10 +170,22 @@ value composed as `checkstyle:` prefix and lowercased checkstyle check name:
 @SuppressWarnings("checkstyle:classdataabstractioncoupling")
 ```
 
+To suppress all checkstyle checks in class comments syntax could be used before class:
+
+```java
+// CHECKSTYLE:OFF
+```
+
 To suppress PMD violation use (in case PMD makes a mistake):
 
 ```java
 @SuppressWarnings("PMD.checkName")
+```
+
+To suppress all PMD checks in class:
+
+```java
+@SuppressWarnings("PMD")
 ```
 
 Travis is linux based build tool and so will use `gradlew` shell script.
@@ -273,6 +285,8 @@ Nothing bad could happen.
 If bintray upload failed, you can always upload one more time.
 If you uploaded bad version and want to re-release it, simply remove version files on bintray package version page and re-do release.
 
+If release failed before tag creation but 
+
 Release plugin changes only version in `gradle.properties` and creates git tag. 
 Version could be reverted manually (by correcting file) and git tag could be also removed like this:
 
@@ -287,3 +301,4 @@ git push origin :refs/tags/release01
 * [guice-ext-annotations](https://github.com/xvik/guice-ext-annotations)
 * [guice-validator](https://github.com/xvik/guice-validator)
 * [dropwizard-orient-server](https://github.com/xvik/dropwizard-orient-server)
+* [dropwizard-guicey](https://github.com/xvik/dropwizard-guicey)
