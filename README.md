@@ -40,6 +40,22 @@ Install `slush-lib-java` globally:
 $ npm install -g slush-lib-java
 ```
 
+##### Update
+
+You can check currently installed generator version using:
+
+```bash
+slush --help
+```
+
+It will print all installed generators with versions
+
+To update lib use:
+
+```bash
+npm update -g slush-lib-java
+```
+
 ### Bintray setup
 
 Sign up to [bintray](https://bintray.com/).
@@ -93,6 +109,7 @@ libPackage = my.default.package
 authorName = My Name
 authorEmail = my@email.com
 userName = githubNick
+bintrayUser = bintrayUserName
 libRepo = bintrayRepoName
 bintraySignFiles = no
 enableQualityChecks = yes
@@ -251,7 +268,7 @@ $ git config --global credential.helper wincred
 
 To [avoid problems](https://github.com/townsfolk/gradle-release/issues/81).
 
-On bintray package page you can find 'latest version' badge code generator: generate badge and insert into your readme.
+Bintray and maven central badges are commented in readme - uncomment them (remove maven badge if not going to publish there)
 
 
 #### General release process
@@ -285,7 +302,7 @@ Nothing bad could happen.
 If bintray upload failed, you can always upload one more time.
 If you uploaded bad version and want to re-release it, simply remove version files on bintray package version page and re-do release.
 
-If release failed before tag creation but 
+If release failed, but plugin already commit new version - you can release again from this state (no need to revert).
 
 Release plugin changes only version in `gradle.properties` and creates git tag. 
 Version could be reverted manually (by correcting file) and git tag could be also removed like this:

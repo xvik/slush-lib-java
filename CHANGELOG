@@ -5,6 +5,7 @@
     Add developerConnection and tag to generated pom
     Add bintray user question (for badge generation)
     Add maven central version and bintray badges to readme
+    Avoid copying some common files on update (like gradlew, readme, changelog, etc)
 
 0.5.1 (2014-09-01)
     Update pmd config

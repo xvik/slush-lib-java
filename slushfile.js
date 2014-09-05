@@ -31,8 +31,8 @@ var defaults = (function () {
         libPackage: global.libPackage || '',
         bintrayUser: global.bintrayUser || '',
         libRepo: global.libRepo || global.userName || osUserName,
-        bintraySignFiles: global.bintraySignFiles ? 'yes' === global.bintraySignFiles: true,
-        enableQualityChecks: global.enableQualityChecks ? 'yes' === global.enableQualityChecks: true
+        bintraySignFiles: global.bintraySignFiles ? 'yes' === global.bintraySignFiles : true,
+        enableQualityChecks: global.enableQualityChecks ? 'yes' === global.enableQualityChecks : true
     };
 })();
 
@@ -120,43 +120,33 @@ gulp.task('default', function (done) {
             answers.libTags = answers.libTags ? answers.libTags.split(',') : [];
 
             var d = new Date();
-            var month = d.getMonth() +1;
+            var month = d.getMonth() + 1;
             answers.year = d.getFullYear();
             answers.date = d.getDate() + '.' + (month < 10 ? '0' + month : month) + '.' + d.getFullYear();
             answers.reverseDate = d.getFullYear() + '-' + (month < 10 ? '0' + month : month) + '-'
                 + (d.getDate() < 10 ? '0' + d.getDate() : d.getDate());
 
-            function log() {
-                var logger = gutil.log.bind(gutil, '[' + gutil.colors.grey('generator') + ']');
-                logger.apply(logger, arguments);
-            }
+            // check existence and avoid copying some files which will not change for sure
+            var exclude = buildExcludeConfig('stub-gradle');
 
-            // --verbose argument enables debug logs
-            var isDebugEnabled = require('minimist')(process.argv, { boolean: true }).verbose;
-            var debug = function (name) {
-                return through.obj(function (file, enc, cb) {
-                    if (isDebugEnabled) log('Processing ' + name + ': ' + file.path.replace(__dirname, ''));
-                    this.push(file);
-                    cb();
-                });
-            };
 
             // init gradle wrapper and stateless configs
-            gulp.src(__dirname + '/stub-gradle/**')
+            gulp.src([__dirname + '/stub-gradle/**'].concat(exclude))
                 .pipe(debug('stub-gradle'))
                 .pipe(conflict('./'))
                 .pipe(gulp.dest('./'))
                 .on('end', processTemplates);
 
+            exclude = buildExcludeConfig('templates');
             var installSources = !require('fs').existsSync('./src/main/java/');
             if (!installSources) {
                 log('Generated sources found, avoid source packages generation');
             }
-            var excludeTemplates = __dirname + (installSources ? '/templates/src/**/package/*' : '/templates/src/**');
+            exclude.push('!' +__dirname + (installSources ? '/templates/src/**/package/*' : '/templates/src/**'));
 
             // create project files
             function processTemplates() {
-                gulp.src([__dirname + '/templates/**', '!' + excludeTemplates])
+                gulp.src([__dirname + '/templates/**'].concat(exclude))
                     .pipe(debug('template'))
                     .pipe(template(answers))
                     .pipe(rename(function (file) {
@@ -212,4 +202,43 @@ gulp.task('default', function (done) {
                 createPackage(paths[i++], nextPath);
             }
         });
+
+    // --verbose argument enables debug logs
+    var isDebugEnabled = require('minimist')(process.argv, { boolean: true }).verbose;
+
+    function log() {
+        var logger = gutil.log.bind(gutil, '[' + gutil.colors.grey('generator') + ']');
+        logger.apply(logger, arguments);
+    }
+
+    function debug(name) {
+        return through.obj(function (file, enc, cb) {
+            if (isDebugEnabled) log('Processing ' + name + ': ' + file.path.replace(__dirname, ''));
+            this.push(file);
+            cb();
+        });
+    }
+
+    function buildExcludeConfig(folder) {
+        var fs = require('fs');
+        var exclusion = [];
+
+        [
+            'gradlew',
+            'gradlew.bat',
+            '.gitignore',
+            '.travis.yml',
+            'CHANGELOG.md',
+            'README.md',
+            'gradle.properties',
+            'LICENSE',
+            'settings.gradle'
+        ].forEach(function (path) {
+                if (fs.existsSync('./' + path)) {
+                    exclusion.push('!' + __dirname + '/'+folder+"/" + path)
+                }
+            });
+
+        return exclusion;
+    }
 });
