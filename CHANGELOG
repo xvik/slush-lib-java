@@ -1,4 +1,4 @@
-0.5.2 (TBR)
+0.5.2 (2014-09-05)
     Checkstyle config update: avoid fail on errors like "Unable to get class information for"
     Pmd config update: remove j2ee section (as not relevant)
     Add checkstyle html report generation
