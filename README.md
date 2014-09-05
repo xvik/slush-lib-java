@@ -95,7 +95,8 @@ $ cd my-library && slush lib-java
 Project setup ready, start coding!
 
 NOTE: May be launched on existing project to update files. In this case all changed files replacement will be asked.
-If java sources directory exist, default package would not be generated.
+If java sources directory exist, default package would not be generated. Also some files (like readme, changelog, gradle.properties etc)
+are not updated (because they usually should not be updated after generation): it reduces number of override confirm questions.
 
 ### Generator defaults
 
@@ -226,7 +227,7 @@ Go to [travis](https://travis-ci.org/) and enable your repo.
 
 Go to [coveralls](http://coveralls.io/) and enable your repo.
 
-To add bintray version badge to github readme: release project, go to bintray package page, get badge link code and insert to readme file.
+Bintray and maven central badges are generated in readme, but commented (uncomment before release).
 
 ### Release process
 
