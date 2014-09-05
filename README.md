@@ -45,7 +45,7 @@ $ npm install -g slush-lib-java
 You can check currently installed generator version using:
 
 ```bash
-slush --help
+$ slush --help
 ```
 
 It will print all installed generators with versions
@@ -53,7 +53,7 @@ It will print all installed generators with versions
 To update lib use:
 
 ```bash
-npm update -g slush-lib-java
+$ npm update -g slush-lib-java
 ```
 
 ### Bintray setup
