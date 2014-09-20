@@ -101,7 +101,7 @@ gulp.task('default', function (done) {
         {
             type: 'confirm',
             name: 'enableQualityChecks',
-            message: 'Enable code quality checks (pmd, checkstyle)?',
+            message: 'Enable code quality checks (pmd, checkstyle, findbugs)?',
             default: defaults.enableQualityChecks
         },
         {

@@ -1,3 +1,9 @@
+0.6.0
+    Update gradle (2.0 -> 2.1)
+    Enable findbugs plugin
+    Add findbugs console output
+    Update gradle-versions-plugin (0.5-beta6 -> 0.5)
+
 0.5.2 (2014-09-05)
     Checkstyle config update: avoid fail on errors like "Unable to get class information for"
     Pmd config update: remove j2ee section (as not relevant)

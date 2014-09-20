@@ -172,10 +172,8 @@ Used gradle plugins:
 * [com.github.kt3k.coveralls](https://github.com/kt3k/coveralls-gradle-plugin) to send coverage report to coveralls
 * [pmd](http://www.gradle.org/docs/current/userguide/pmd_plugin.html) to check code quality with [PMD](http://pmd.sourceforge.net/) tool
 * [checkstyle](http://www.gradle.org/docs/current/userguide/checkstyle_plugin.html) to check code style rules with [checkstyle](http://checkstyle.sourceforge.net/index.html)
+* [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) to find potential bugs with [findbugs](http://findbugs.sourceforge.net/)
 * [release](https://github.com/townsfolk/gradle-release) for release (see [article](http://www.sosaywecode.com/gradle-release-plugin/) for additional plugin details)
-
-NOTE: [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) plugin is commented in `quality.gradle` 
-because of strage errors (maybe it will work in your case, try to enable it).
 
 By default, checkstyle configured with simplified checks file. Modify it according to your needs.
 [Sun conventions](http://java.sun.com/docs/codeconv/) file is also provided as reference
@@ -205,6 +203,11 @@ To suppress all PMD checks in class:
 ```java
 @SuppressWarnings("PMD")
 ```
+
+To suppress findbugs warnings you can use [exclusion filter](http://findbugs.sourceforge.net/manual/filter.html) (gradle/config/findbugs/exclude.xml).
+Findbug does not support @SuppressWarnings, instead you can use it's own [@SuppressFBWarnings](http://findbugs.sourceforge.net/api/edu/umd/cs/findbugs/annotations/SuppressFBWarnings.html)
+(but you will have to add dependency for annotations `'com.google.code.findbugs:annotations:3.0.0'`)
+
 
 Travis is linux based build tool and so will use `gradlew` shell script.
 You need to set executable flag on it if it's not set.
