@@ -209,10 +209,8 @@ Findbug does not support @SuppressWarnings, instead you can use it's own [@Suppr
 (but you will have to add dependency for annotations `'com.google.code.findbugs:annotations:3.0.0'`)
 
 
-Travis is linux based build tool and so will use `gradlew` shell script.
-You need to set executable flag on it if it's not set.
-
-To do it on windows use git:
+Travis configured to automatically set execution flag on `gradlew` shell script.
+If you still want to set it manually on windows use git (not required anymore):
 
 ```bash
 $ git update-index --chmod=+x gradlew

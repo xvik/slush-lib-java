@@ -1,4 +1,9 @@
-0.6.0
+0.6.1 (2014-09-22)
+    Fix gradlew permission for travis (+x now set by travis to avoid problems)
+    Add explicit scripts execution for travis to simplify tuning
+    Enable tests failure cause logging on travis (simplify build fail cause detection)
+
+0.6.0 (2014-09-20)
     Update gradle (2.0 -> 2.1)
     Enable findbugs plugin
     Add findbugs console output
