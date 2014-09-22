@@ -16,7 +16,7 @@ Features:
 * [Bintray](https://bintray.com/) publication (may be published to maven central using bintray ui)
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
-* Code quality checks (pmd, checkstyle)
+* Code quality checks (pmd, checkstyle, findbugs)
 * Release process (like maven release)
  
 [The story behind](https://medium.com/@vyarus/faster-way-to-java-opensource-d4fa78efcf16)
