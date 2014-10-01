@@ -297,6 +297,13 @@ If you use bintray maven synchronization, go to bintray package page, open 'mave
 Usually it works well, but sometimes it fails with strange errors (something like not able to close repository) - 
 simply do sync one more time (eventually it will do it (of course, if your files valid))
 
+NOTE: github aggressively cache badges and bintray badges are often cached with wrong version. The easy workaround for this
+is to add something to badge url after release (e.g. 'ts=num'):
+```
+[![Download](https://api.bintray.com/packages/user/repo/lib/images/download.svg?ts=1)]
+```
+This way github will be forced to re-generate badge and you (and your users) will see correct version in readme.
+
 #### If release failed
 
 Nothing bad could happen. 

@@ -1,3 +1,8 @@
+0.6.2 (2014-10-01)
+    Improve PMD console output: add link to complete description
+    Fix source jars loading in IDE (mavenLocal breaks sources loading when defined first)
+    Switch to new bintray badges (look like other standard badges)
+
 0.6.1 (2014-09-22)
     Fix gradlew permission for travis (+x now set by travis to avoid problems)
     Add explicit scripts execution for travis to simplify tuning
