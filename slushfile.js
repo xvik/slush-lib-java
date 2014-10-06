@@ -232,7 +232,8 @@ gulp.task('default', function (done) {
             'README.md',
             'gradle.properties',
             'LICENSE',
-            'settings.gradle'
+            'settings.gradle',
+            'gradle/config/findbugs/exclude.xml'
         ].forEach(function (path) {
                 if (fs.existsSync('./' + path)) {
                     exclusion.push('!' + __dirname + '/'+folder+"/" + path)

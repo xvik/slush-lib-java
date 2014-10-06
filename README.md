@@ -23,7 +23,7 @@ Features:
 
 ### Thanks to
 
-* [Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config
+* [Vladislav Bauer](https://github.com/vbauer) ([android-arsenal](http://android-arsenal.com/) author) for checkstyle config and [gitignore.io](https://gitignore.io) hint
 * [Juan Roperto](https://github.com/jroperto) for pmd config
 
 ### Setup
@@ -165,7 +165,6 @@ Used gradle plugins:
 * [groovy](http://www.gradle.org/docs/current/userguide/groovy_plugin.html) to support spock tests
 * [maven-publish](http://www.gradle.org/docs/current/userguide/publishing_maven.html) to generate pom and publish to maven repository
 * [com.jfrog.bintray](https://github.com/bintray/gradle-bintray-plugin) for bintray publishing
-* [org.10ne.rest](https://github.com/noamt/rest-gradle-plugin) to call bintray rest api for signing artifacts
 * [com.github.ben-manes.versions](https://github.com/ben-manes/gradle-versions-plugin) to check dependencies versions updates
 * [project-report](http://www.gradle.org/docs/current/userguide/project_reports_plugin.html) to generate dependency tree html report
 * [jacoco](http://www.gradle.org/docs/current/userguide/jacoco_plugin.html) to build coverage report for coveralls
