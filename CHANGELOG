@@ -1,4 +1,4 @@
-1.0.0 (2014-10-06)
+0.7.0 (2014-10-06)
     Improve .gitignore using gitignore.io
     Update coveralls-gradle-plugin (2.0.0 -> 2.0.1)
     Update gradle-bintray-plugin (0.5 -> 0.6)
