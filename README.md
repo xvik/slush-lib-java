@@ -16,6 +16,7 @@ Features:
 * [Bintray](https://bintray.com/) publication (may be published to maven central using bintray ui)
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
+* Target jdk compatibility check with [animal sniffer](http://mojo.codehaus.org/animal-sniffer/) (project configured for 1.6 compatibility, while you may use any jdk to build)
 * Code quality checks (pmd, checkstyle, findbugs)
 * Release process (like maven release)
  
@@ -172,6 +173,7 @@ Used gradle plugins:
 * [pmd](http://www.gradle.org/docs/current/userguide/pmd_plugin.html) to check code quality with [PMD](http://pmd.sourceforge.net/) tool
 * [checkstyle](http://www.gradle.org/docs/current/userguide/checkstyle_plugin.html) to check code style rules with [checkstyle](http://checkstyle.sourceforge.net/index.html)
 * [findbugs](http://www.gradle.org/docs/current/userguide/findbugs_plugin.html) to find potential bugs with [findbugs](http://findbugs.sourceforge.net/)
+* [be.insaneprogramming.gradle.animalsniffer](https://bitbucket.org/lievendoclo/animalsniffer-gradle-plugin) to verify jdk backwards compatibility (1.6) when building on newer jdk (1.7, 1.8)
 * [release](https://github.com/townsfolk/gradle-release) for release (see [article](http://www.sosaywecode.com/gradle-release-plugin/) for additional plugin details)
 
 By default, checkstyle configured with simplified checks file. Modify it according to your needs.

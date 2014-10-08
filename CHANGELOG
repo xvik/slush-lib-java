@@ -1,3 +1,8 @@
+0.8.0 (2014-10-08)
+    Add animalsniffer plugin to check jdk backwards compatibility (when using newer jdk for build)
+    Fix java target version flag to apply for main code only (remove flag from tests)
+    Add build section for main config to define gradle version (for wrapper), target java and animalsniffer signature
+
 0.7.0 (2014-10-06)
     Improve .gitignore using gitignore.io
     Update coveralls-gradle-plugin (2.0.0 -> 2.0.1)
