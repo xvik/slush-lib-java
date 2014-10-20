@@ -1,3 +1,10 @@
+0.9.0 (2014-10-21)
+    Update pmd 5.1.2 -> 5.1.3 (and fix pmd config compatibility)
+    Update checkstyle 5.7 -> 5.9
+    Update pmd and findbugs console output (and log warnings as errors)
+    Add optional and provided scopes support (affects pom generation, but for project it will be the same as compile)
+    Add provided dependency for findbugs jsr-305 annotations (required to workaround findbugs nullable check with guava)
+
 0.8.0 (2014-10-08)
     Add animalsniffer plugin to check jdk backwards compatibility (when using newer jdk for build)
     Fix java target version flag to apply for main code only (remove flag from tests)

@@ -10,7 +10,7 @@ The main goal is to simplify new [github](https://github.com) java library setup
 
 Features:
 * [MIT](http://opensource.org/licenses/MIT) license (hardcoded)
-* [Gradle](http://www.gradle.org/) build
+* [Gradle](http://www.gradle.org/) build (with support of optional and provided dependencies)
 * [Maven central](http://search.maven.org/) compatible artifacts (jar, sources, javadocs)
 * Ready for [spock](https://code.google.com/p/spock/) tests ([documentation](http://spock-framework.readthedocs.org/en/latest/))
 * [Bintray](https://bintray.com/) publication (may be published to maven central using bintray ui)
@@ -155,6 +155,29 @@ $ gradlew release
 Releases library. Read release process section below before performing first release.
 
 
+#### Optional dependencies
+
+Optional and provided dependencies could be defined, for example:
+
+```groovy
+provided 'com.google.code.findbugs:jsr305:3.0.0'
+```
+
+or 
+
+```groovy
+optional 'com.google.code.findbugs:jsr305:3.0.0'
+```
+
+In generated pom these dependencies will be defined as provided or optional, but for gradle build it's
+the same as declaring them in `compile` scope.
+
+jsr305 provided dependency is defined by default in generated project (useful to guide firebug).
+
+Scala note: The Scala compiler, unlike the Java compiler, [requires that annotations used by a library be available when 
+compiling against that library](https://issues.scala-lang.org/browse/SI-5420). 
+If your library users will compile with Scala, they must declare a dependency on JSR-305 jar.
+
 ### Project details
 
 All project specific data (mostly inserted with generator) is in `build.gradle` file.
@@ -176,39 +199,29 @@ Used gradle plugins:
 * [be.insaneprogramming.gradle.animalsniffer](https://bitbucket.org/lievendoclo/animalsniffer-gradle-plugin) to verify jdk backwards compatibility (1.6) when building on newer jdk (1.7, 1.8)
 * [release](https://github.com/townsfolk/gradle-release) for release (see [article](http://www.sosaywecode.com/gradle-release-plugin/) for additional plugin details)
 
-By default, checkstyle configured with simplified checks file. Modify it according to your needs.
-[Sun conventions](http://java.sun.com/docs/codeconv/) file is also provided as reference
-(see `gradle/config/checkstyle/sun_checks.xml`). You can replace default file in `quality.gradle`.
+#### Java compatibility
 
-To suppress checkstyle warnings (required for some exceptional cases) use `@SuppressWarnings` annotation with 
-value composed as `checkstyle:` prefix and lowercased checkstyle check name:
+By default project configured for java 6 compatibility (see build config section):
 
-```java
-@SuppressWarnings("checkstyle:classdataabstractioncoupling")
+```groovy
+    build = {
+        gradle = 2.1
+        java = 1.6
+        signature = 'org.codehaus.mojo.signature:java16-sun:+@signature'
+    }
 ```
 
-To suppress all checkstyle checks in class comments syntax could be used before class:
+`java` option defines target and source java compiler options.
 
-```java
-// CHECKSTYLE:OFF
-```
+`signature` defines [animal sniffer](http://mojo.codehaus.org/animal-sniffer/) signature to check.
+With it you can use any jdk while developing and if you accidentally use newer api than defined in signature
+it will warn you on compilation. You can find [other signatures in maven central](http://search.maven.org/#search%7Cga%7C2%7Csignature).
+To switch off animal sniffer check simply set signature value to `''`
 
-To suppress PMD violation use (in case PMD makes a mistake):
+Known issue: sometimes gradle build failed on animal sniffer task with generic error. In this case simply execute gradle clean
+and issue will be resolved (most likely issue occur because of IDE).
 
-```java
-@SuppressWarnings("PMD.checkName")
-```
-
-To suppress all PMD checks in class:
-
-```java
-@SuppressWarnings("PMD")
-```
-
-To suppress findbugs warnings you can use [exclusion filter](http://findbugs.sourceforge.net/manual/filter.html) (gradle/config/findbugs/exclude.xml).
-Findbug does not support @SuppressWarnings, instead you can use it's own [@SuppressFBWarnings](http://findbugs.sourceforge.net/api/edu/umd/cs/findbugs/annotations/SuppressFBWarnings.html)
-(but you will have to add dependency for annotations `'com.google.code.findbugs:annotations:3.0.0'`)
-
+#### Travis 
 
 Travis configured to automatically set execution flag on `gradlew` shell script.
 If you still want to set it manually on windows use git (not required anymore):
@@ -230,6 +243,72 @@ Go to [travis](https://travis-ci.org/) and enable your repo.
 Go to [coveralls](http://coveralls.io/) and enable your repo.
 
 Bintray and maven central badges are generated in readme, but commented (uncomment before release).
+
+
+### Quality tools
+
+#### Checkstyle
+
+By default, checkstyle configured with simplified checks file. Modify it according to your needs.
+[Sun conventions](http://java.sun.com/docs/codeconv/) file is also provided as reference
+(see `gradle/config/checkstyle/sun_checks.xml`). You can replace default file in `quality.gradle`.
+
+To suppress checkstyle warnings (required for some exceptional cases) use `@SuppressWarnings` annotation with 
+value composed as `checkstyle:` prefix and lowercased checkstyle check name:
+
+```java
+@SuppressWarnings("checkstyle:classdataabstractioncoupling")
+```
+
+To suppress all checkstyle checks in class comments syntax could be used before class:
+
+```java
+// CHECKSTYLE:OFF
+```
+
+Also, use checkstyle plugin for your IDE (for example, CheckStyle-IDEA for idea) and set your checkstyle configuration
+for plugin. This way you will see issues quicker and will have to do less cleanups before commit (where you will call
+quality checks).
+
+
+#### PMD
+
+To suppress PMD violation use (in case PMD makes a mistake):
+
+```java
+@SuppressWarnings("PMD.checkName")
+```
+
+To suppress all PMD checks in class:
+
+```java
+@SuppressWarnings("PMD")
+```
+
+Pmd configuration file: `gradle/config/pmd/pmd.xml`
+
+#### Findbugs
+
+To suppress findbugs warnings you can use [exclusion filter](http://findbugs.sourceforge.net/manual/filter.html) (gradle/config/findbugs/exclude.xml).
+Findbug does not support @SuppressWarnings, instead you can use it's own [@SuppressFBWarnings](http://findbugs.sourceforge.net/api/edu/umd/cs/findbugs/annotations/SuppressFBWarnings.html)
+(but you will have to add dependency for annotations `'com.google.code.findbugs:annotations:3.0.0'`)
+
+You may face issue with guava functions or predicates:
+
+```
+input must be nonnull but is marked as nullable [NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE]
+```
+
+The reason for this is that guava use `@Nullable` annotation, which is `@Inherited`, so
+even if you not set annotation on your own function or predicate it will still be visible,
+
+The simplest workaround is to set `@Nonnull` annotaion (from jsr305 jar included by default) on your function or predicate:
+
+```java
+public boolean apply(@Nonnull final Object input) {
+```
+
+Also, it's good idea to use jsr305 annotations to guide findbugs.
 
 ### Release process
 
