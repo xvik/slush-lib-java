@@ -1,3 +1,7 @@
+0.9.1 (2014-11-04)
+    Update pmd 5.1.3 -> 5.2.1
+    Update checkstyle 5.9 -> 6.0
+
 0.9.0 (2014-10-21)
     Update pmd 5.1.2 -> 5.1.3 (and fix pmd config compatibility)
     Update checkstyle 5.7 -> 5.9
