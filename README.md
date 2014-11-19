@@ -408,3 +408,4 @@ git push origin :refs/tags/release01
 * [guice-validator](https://github.com/xvik/guice-validator)
 * [dropwizard-orient-server](https://github.com/xvik/dropwizard-orient-server)
 * [dropwizard-guicey](https://github.com/xvik/dropwizard-guicey)
+* [generics-resolver](https://github.com/xvik/generics-resolver)
