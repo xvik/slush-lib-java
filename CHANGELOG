@@ -1,3 +1,13 @@
+1.0.0 (2014-12-15)
+    Update gradle 2.2 -> 2.2.1
+    Update pmd 5.2.1 -> 5.2.2
+    Update checkstyle 6.1 -> 6.1.1
+    Update junit 4.11 -> 4.12
+    Update gradle-versions-plugin 0.5 -> 0.6
+    Update gradle-bintray-plugin 0.6 -> 1.0 (supports maven central sync)
+    Add automatic maven central sync config section (and new question in generator)
+    Add javac -Xlint:deprecation and -Xlint:unchecked arguments (enabled with quality checks)
+
 0.9.2 (2014-11-19)
     Update checkstyle 6.0 -> 6.1
     Update gradle 2.1 -> 2.2

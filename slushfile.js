@@ -32,6 +32,7 @@ var defaults = (function () {
         bintrayUser: global.bintrayUser || '',
         libRepo: global.libRepo || global.userName || osUserName,
         bintraySignFiles: global.bintraySignFiles ? 'yes' === global.bintraySignFiles : true,
+        mavenCentralSync: global.mavenCentralSync ? 'yes' === global.mavenCentralSync : true,
         enableQualityChecks: global.enableQualityChecks ? 'yes' === global.enableQualityChecks : true
     };
 })();
@@ -97,6 +98,12 @@ gulp.task('default', function (done) {
             name: 'bintraySignFiles',
             message: 'Should bintray sign files on release (bintray must be configured accordingly)?',
             default: defaults.bintraySignFiles
+        },
+        {
+            type: 'confirm',
+            name: 'mavenCentralSync',
+            message: 'Should bintray sync with maven central on release (jars must be signed!)?',
+            default: defaults.bintraySignFiles && defaults.mavenCentralSync
         },
         {
             type: 'confirm',

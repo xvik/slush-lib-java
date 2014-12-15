@@ -1,19 +1,21 @@
 #Java library slush generator
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/xvik/slush-lib-java)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT)
 [![NPM version](http://img.shields.io/npm/v/slush-lib-java.svg?style=flat)](http://badge.fury.io/js/slush-lib-java)
 [![Downloads](http://img.shields.io/npm/dm/slush-lib-java.svg?style=flat)](https://www.npmjs.org/package/slush-lib-java)
 
 ### About
 
-The main goal is to simplify new [github](https://github.com) java library setup. 
+The main goal is to simplify new [github](https://github.com) java library setup.
+Simplifies build upgrade (especially if there are many repositories).
 
 Features:
 * [MIT](http://opensource.org/licenses/MIT) license (hardcoded)
 * [Gradle](http://www.gradle.org/) build (with support of optional and provided dependencies)
 * [Maven central](http://search.maven.org/) compatible artifacts (jar, sources, javadocs)
 * Ready for [spock](https://code.google.com/p/spock/) tests ([documentation](http://spock-framework.readthedocs.org/en/latest/))
-* [Bintray](https://bintray.com/) publication (may be published to maven central using bintray ui)
+* [Bintray](https://bintray.com/) publication (+ jars signing and maven central publishing)
 * [Travis-ci](https://travis-ci.org/) integration (CI and healthy badge)
 * [Coveralls](http://coveralls.io/) integration (code coverage badge)
 * Target jdk compatibility check with [animal sniffer](http://mojo.codehaus.org/animal-sniffer/) (project configured for 1.6 compatibility, while you may use any jdk to build)
@@ -66,7 +68,6 @@ When you publish you package (release library), you can use it directly from you
 Better option is to request inclusion into jcenter repository (maven central alternative).
 Also, you can publish your library to maven central. Project already generates valid artifacts for maven central, but
 they also must be signed. If you register certificate on bintray, it will be able to sign files for you.
-Project support files signing (bintray rest api called to sign just released files).
 
 Read [instruction](https://medium.com/@vyarus/the-hard-way-to-maven-central-c9e16d163acc)
 
@@ -75,6 +76,13 @@ Add bintray user and key to `~/.gradle/gradle.properties`
 ```
 bintrayUser=username
 bintrayKey=secretkey
+```
+
+If you will use automatic maven central publishing add:
+
+```
+sonatypeUser=username
+sonatypePassword=password
 ```
 
 ### Usage
@@ -95,9 +103,20 @@ $ cd my-library && slush lib-java
 
 Project setup ready, start coding!
 
-NOTE: May be launched on existing project to update files. In this case all changed files replacement will be asked.
-If java sources directory exist, default package would not be generated. Also some files (like readme, changelog, gradle.properties etc)
-are not updated (because they usually should not be updated after generation): it reduces number of override confirm questions.
+#### Build upgrade
+
+When launched on already generated project it works in update mode: in this case
+all changed files replacement will be asked.
+If java sources directory exist, default package would not be generated.
+Also some files (like readme, changelog, gradle.properties etc)
+will not be updated (because they usually should not be updated after generation):
+it reduces number of override confirm questions.
+
+Start it without local changes and after generation look git changes and correct
+(usually only main build.gradle requires modifications after update).
+
+Update mode greatly simplifies maintaining single build in many repositories and
+reduce errors possibility (before it it was so easy to forget to update something).
 
 ### Generator defaults
 
@@ -114,6 +133,7 @@ userName = githubNick
 bintrayUser = bintrayUserName
 libRepo = bintrayRepoName
 bintraySignFiles = no
+mavenCentralSync = no
 enableQualityChecks = yes
 ```
 
@@ -219,7 +239,7 @@ it will warn you on compilation. You can find [other signatures in maven central
 To switch off animal sniffer check simply set signature value to `''`
 
 Known issue: sometimes gradle build failed on animal sniffer task with generic error. In this case simply execute gradle clean
-and issue will be resolved (most likely issue occur because of IDE).
+and issue will be resolved (issue occur because of IDE).
 
 #### Travis 
 
@@ -244,6 +264,16 @@ Go to [coveralls](http://coveralls.io/) and enable your repo.
 
 Bintray and maven central badges are generated in readme, but commented (uncomment before release).
 
+### Gitter
+
+[Gitter](https://gitter.im) is a chat room for your repository. Most likely, with it you
+will get much more feedback (something people will never post as issue or write by email).
+
+Gitter badge is not generated automatically, because it's not required as other services and it's too easy to add at any time.
+Look it and decide if you need it.
+
+NOTE: gitter badge contains space: `..badges.gitter.im/Join Chat.svg`. It's ok for github, but bintray
+will not handle it. To fix it replace space: `..badges.gitter.im/Join%20Chat.svg`
 
 ### Quality tools
 
@@ -372,17 +402,9 @@ During release, plugin will create tag (new github release appear) and update ve
 
 NOTE: Sometimes release plugin [did not set 'SNAPSHOT' postfix](https://github.com/townsfolk/gradle-release/issues/64) to new version.
 
-
-If you use bintray maven synchronization, go to bintray package page, open 'maven' tab and press 'sync' button. 
-Usually it works well, but sometimes it fails with strange errors (something like not able to close repository) - 
+Maven synchronization may be triggered during release. If you didn't configure it, you may still use bintray ui for synchronization.
+Usually synchronization works well, but sometimes it fails with strange errors (something like not able to close repository) -
 simply do sync one more time (eventually it will do it (of course, if your files valid))
-
-NOTE: github aggressively cache badges and bintray badges are often cached with wrong version. The easy workaround for this
-is to add something to badge url after release (e.g. 'ts=num'):
-```
-[![Download](https://api.bintray.com/packages/user/repo/lib/images/download.svg?ts=1)]
-```
-This way github will be forced to re-generate badge and you (and your users) will see correct version in readme.
 
 #### If release failed
 
@@ -400,6 +422,10 @@ Version could be reverted manually (by correcting file) and git tag could be als
 git tag -d release01 
 git push origin :refs/tags/release01 
 ```
+
+### Support
+
+[Gitter chat room](https://gitter.im/xvik/slush-lib-java)
 
 ### Examples
 
