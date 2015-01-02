@@ -1,3 +1,7 @@
+1.1.0 (2015-01-02)
+    Update pmd 5.2.2 -> 5.2.3
+    Update checkstyle 6.1.1 -> 6.2 (requires jdk7 or above)
+
 1.0.0 (2014-12-15)
     Update gradle 2.2 -> 2.2.1
     Update pmd 5.2.1 -> 5.2.2

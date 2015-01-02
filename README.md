@@ -21,6 +21,8 @@ Features:
 * Target jdk compatibility check with [animal sniffer](http://mojo.codehaus.org/animal-sniffer/) (project configured for 1.6 compatibility, while you may use any jdk to build)
 * Code quality checks (pmd, checkstyle, findbugs)
 * Release process (like maven release)
+
+Note: checkstyle 6.2 requires jdk7 or above, so if you use quality checks you will have to use jdk7 or above for build.
  
 [The story behind](https://medium.com/@vyarus/faster-way-to-java-opensource-d4fa78efcf16)
 
