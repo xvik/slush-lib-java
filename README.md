@@ -5,7 +5,7 @@
 [![NPM version](http://img.shields.io/npm/v/slush-lib-java.svg?style=flat)](http://badge.fury.io/js/slush-lib-java)
 [![Downloads](http://img.shields.io/npm/dm/slush-lib-java.svg?style=flat)](https://www.npmjs.org/package/slush-lib-java)
 
-Deprecated!
+**Deprecated!**
 
 Use [yeoman generator](https://github.com/xvik/generator-lib-java) instead: [migration guide](https://github.com/xvik/slush-lib-java/wiki)
 
