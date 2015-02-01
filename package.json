@@ -1,6 +1,6 @@
 {
   "name": "slush-lib-java",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A slush generator for java library project, hosted on github, build with gradle and published to bintray",
   "keywords": [
     "slushgenerator",
